@@ -1,4 +1,5 @@
 from room import Room
+from player import Player
 
 # Declare all the rooms
 
@@ -49,3 +50,45 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+current_room = room["outside"]
+name = input("\nWhat is your name? ")
+print (f"\nGoodluck, {name}!")
+
+player = Player(name, room["outside"])
+
+while True:
+    current_room = player.current_room
+    print("\n-------------------------------------------------------------------------")
+    print(f"\n    Current room: {current_room.name}")
+    print(f"\n    Room description: {current_room.description}\n")
+    command = input("Please pick a command:\n(n)orth\n(s)outh\n(e)ast\n(w)est\n(q)uit\n   Command: ")
+    command = command.lower().strip()
+    if command == '':
+        continue
+    command = command[0]
+    if command == "n":
+        if current_room.n_to is not None:
+            player.current_room = current_room.n_to
+        else:
+            print("\n**There is no room in that direction**")
+    elif command == "s":
+        if current_room.s_to is not None:
+            player.current_room = current_room.s_to
+        else:
+            print("\n**There is no room in that direction**")
+    elif command == "e":
+        if current_room.e_to is not None:
+            player.current_room = current_room.e_to
+        else:
+            print("\n**There is no room in that direction**")
+    elif command == "w":
+        if current_room.w_to is not None:
+            player.current_room = current_room.w_to
+        else:
+            print("\n**There is no room in that direction**")
+    elif command == "q":
+        print("\n**You have quit the game! Goodbye!**")
+        break
+    else:
+        print("\n**Did not recognize the command**")
